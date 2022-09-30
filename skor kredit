@@ -1,0 +1,200 @@
+import pandas as pd
+dataset = pd.read_csv('application_train.csv')
+dataset
+print('\nInformasi dataset:')
+print(dataset.info())
+print('\nStatistik deskriptif:\n', dataset.describe())
+
+dataset_corr = dataset.corr()
+print('Korelasi dataset:\n', dataset.corr())
+print('Distribusi Label (Target):\n', dataset['TARGET'].value_counts())
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+# checking the Distribution of TARGET
+plt.rcParams['figure.figsize']=(12,5)
+plt.subplot(1,2,2)
+sns.countplot(dataset['NAME_CONTRACT_TYPE'], palette='inferno')
+plt.title('Name Contract Type', fontsize= 20)
+plt.ylabel('count', fontsize=14)
+plt.show()
+
+#checking missing value for each feature  
+print('Checking missing value for each feature:')
+print(print(dataset.isnull().sum()))
+#Counting total missing value
+print('\nCounting total missing value:')
+print(print(dataset.isnull().sum().sum()))
+
+#Drop rows with missing value   
+dataset = dataset.dropna()  
+print('Ukuran dataset_clean:', dataset.shape)
+dataset
+
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+# Convert feature/column 'NAME_CONTRACT_TYPE'
+LE = LabelEncoder()
+dataset['NAME_CONTRACT_TYPE'] = LE.fit_transform(dataset['NAME_CONTRACT_TYPE'])
+print(LE.classes_)
+print(np.sort(dataset['NAME_CONTRACT_TYPE'].unique()))
+print('')
+
+# Convert feature/column 'CODE_GENDER'
+LE = LabelEncoder()
+dataset['CODE_GENDER'] = LE.fit_transform(dataset['CODE_GENDER'])
+print(LE.classes_)
+print(np.sort(dataset['CODE_GENDER'].unique()))
+
+# Convert feature/column 'FLAG_OWN_CAR'
+LE = LabelEncoder()
+dataset['FLAG_OWN_CAR'] = LE.fit_transform(dataset['FLAG_OWN_CAR'])
+print(LE.classes_)
+print(np.sort(dataset['FLAG_OWN_CAR'].unique()))
+
+# Convert feature/column 'FLAG_OWN_REALTY'
+LE = LabelEncoder()
+dataset['FLAG_OWN_REALTY'] = LE.fit_transform(dataset['FLAG_OWN_REALTY'])
+print(LE.classes_)
+print(np.sort(dataset['FLAG_OWN_REALTY'].unique()))
+
+# Convert feature/column 'NAME_TYPE_SUITE'
+LE = LabelEncoder()
+dataset['NAME_TYPE_SUITE'] = LE.fit_transform(dataset['NAME_TYPE_SUITE'])
+print(LE.classes_)
+print(np.sort(dataset['NAME_TYPE_SUITE'].unique()))
+
+# Convert feature/column 'NAME_INCOME_TYPE'
+LE = LabelEncoder()
+dataset['NAME_INCOME_TYPE'] = LE.fit_transform(dataset['NAME_INCOME_TYPE'])
+print(LE.classes_)
+print(np.sort(dataset['NAME_INCOME_TYPE'].unique()))
+
+# Convert feature/column 'NAME_EDUCATION_TYPE'
+LE = LabelEncoder()
+dataset['NAME_EDUCATION_TYPE'] = LE.fit_transform(dataset['NAME_EDUCATION_TYPE'])
+print(LE.classes_)
+print(np.sort(dataset['NAME_EDUCATION_TYPE'].unique()))
+
+# Convert feature/column 'NAME_FAMILY_STATUS'
+LE = LabelEncoder()
+dataset['NAME_FAMILY_STATUS'] = LE.fit_transform(dataset['NAME_FAMILY_STATUS'])
+print(LE.classes_)
+print(np.sort(dataset['NAME_FAMILY_STATUS'].unique()))
+
+# Convert feature/column 'NAME_HOUSING_TYPE'
+LE = LabelEncoder()
+dataset['NAME_HOUSING_TYPE'] = LE.fit_transform(dataset['NAME_HOUSING_TYPE'])
+print(LE.classes_)
+print(np.sort(dataset['NAME_HOUSING_TYPE'].unique()))
+
+# Convert feature/column 'OCCUPATION_TYPE'
+LE = LabelEncoder()
+dataset['OCCUPATION_TYPE'] = LE.fit_transform(dataset['OCCUPATION_TYPE'])
+print(LE.classes_)
+print(np.sort(dataset['OCCUPATION_TYPE'].unique()))
+
+# Convert feature/column 'WEEKDAY_APPR_PROCESS_START'
+LE = LabelEncoder()
+dataset['WEEKDAY_APPR_PROCESS_START'] = LE.fit_transform(dataset['WEEKDAY_APPR_PROCESS_START'])
+print(LE.classes_)
+print(np.sort(dataset['WEEKDAY_APPR_PROCESS_START'].unique()))
+
+# Convert feature/column 'ORGANIZATION_TYPE'
+LE = LabelEncoder()
+dataset['ORGANIZATION_TYPE'] = LE.fit_transform(dataset['ORGANIZATION_TYPE'])
+print(LE.classes_)
+print(np.sort(dataset['ORGANIZATION_TYPE'].unique()))
+
+# Convert feature/column 'FONDKAPREMONT_MODE'
+LE = LabelEncoder()
+dataset['FONDKAPREMONT_MODE'] = LE.fit_transform(dataset['FONDKAPREMONT_MODE'])
+print(LE.classes_)
+print(np.sort(dataset['FONDKAPREMONT_MODE'].unique()))
+
+# Convert feature/column 'HOUSETYPE_MODE'
+LE = LabelEncoder()
+dataset['HOUSETYPE_MODE'] = LE.fit_transform(dataset['HOUSETYPE_MODE'])
+print(LE.classes_)
+print(np.sort(dataset['HOUSETYPE_MODE'].unique()))
+
+# Convert feature/column 'WALLSMATERIAL_MODE'
+LE = LabelEncoder()
+dataset['WALLSMATERIAL_MODE'] = LE.fit_transform(dataset['WALLSMATERIAL_MODE'])
+print(LE.classes_)
+print(np.sort(dataset['WALLSMATERIAL_MODE'].unique()))
+
+# Convert feature/column 'EMERGENCYSTATE_MODE'
+LE = LabelEncoder()
+dataset['EMERGENCYSTATE_MODE'] = LE.fit_transform(dataset['EMERGENCYSTATE_MODE'])
+print(LE.classes_)
+print(np.sort(dataset['EMERGENCYSTATE_MODE'].unique()))
+
+# Convert feature/column 'EMERGENCYSTATE_MODE'
+LE = LabelEncoder()
+dataset['EMERGENCYSTATE_MODE'] = LE.fit_transform(dataset['EMERGENCYSTATE_MODE'])
+print(LE.classes_)
+print(np.sort(dataset['EMERGENCYSTATE_MODE'].unique()))
+
+# removing the column 'TARGET' from dataset and assigning to X
+X= dataset.drop(['TARGET'], axis=1)
+# assigning the column 'TARGET' to y
+y = dataset['TARGET']
+# checking the shapes
+print("Shape of X:", X.shape)
+print("Shape of y:", y.shape)
+
+from sklearn.model_selection import train_test_split
+# splitting the X, and y
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size =0.2, random_state=0)
+# checking the shapes
+print("Shape of X_train :", X_train.shape)
+print("Shape of y_train :", y_train.shape)
+print("Shape of X_test :", X_test.shape)
+print("Shape of y_test :", y_test.shape)
+
+from sklearn.tree import DecisionTreeClassifier
+# Call the classifier
+model= DecisionTreeClassifier()
+# Fit the classifier to the training data
+model= model.fit(X_train, y_train)
+# Apply the classifier/model to the test data
+y_pred= model.predict(X_test)
+print(y_pred.shape)
+
+from sklearn.metrics import confusion_matrix, classification_report# evaluating the model
+print('Training Accuracy :', model.score(X_train, y_train))
+print('Testing Accuracy :', model.score(X_test, y_test))# confusion matrix
+print('\nConfusion matrix:')
+cm = confusion_matrix(y_test, y_pred)
+print(cm)# classification report
+print('\nClassification report:')
+cr = classification_report(y_test, y_pred)
+print(cr)
+
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier# splitting the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 0)# Call the classifier
+decision_tree = DecisionTreeClassifier()
+# Fit the classifier to the training data
+decision_tree = decision_tree.fit(X_train,y_train)# evaluating the decision_tree performance
+print('Training Accuracy :', decision_tree.score(X_train, y_train))
+print('Testing Accuracy :', decision_tree.score(X_test, y_test))
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, classification_report
+# Call the classifier
+logreg = LogisticRegression()# Fit the classifier to the training data  
+logreg = logreg.fit(X_train, y_train)
+#Training Model: Predict 
+y_pred = logreg.predict(X_test)
+
+#Evaluate Model Performance
+print('Training Accuracy :', model.score(X_train, y_train))  
+print('Testing Accuracy :', model.score(X_test, y_test))# confusion matrix
+print('\nConfusion matrix')  
+cm = confusion_matrix(y_test, y_pred)  
+print(cm)# classification report  
+print('\nClassification report')  
+cr = classification_report(y_test, y_pred)  
+print(cr)
